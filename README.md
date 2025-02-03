@@ -1,15 +1,8 @@
-# YouTube Comments Song Generator
+# YouTube Comment Song Generator
 
-This application creates unique songs by extracting random comments from YouTube videos. It combines the power of YouTube data extraction with creative text-to-song generation.
+A Streamlit application that creates songs from YouTube video comments using AI.
 
-## Features
-
-- Extracts comments from any YouTube video
-- Generates creative songs from the extracted comments
-- Exports results in multiple formats (CSV, PDF)
-- Easy-to-use command-line interface
-
-## Installation
+## Setup
 
 1. Clone the repository:
 ```bash
@@ -17,42 +10,57 @@ git clone https://github.com/DeVReV27/yt_commentsongs.git
 cd yt_commentsongs
 ```
 
-2. Install required dependencies:
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Set up your environment variables in a `.env` file:
-```
-YOUTUBE_API_KEY=your_api_key_here
-```
+3. For local development, create a `.env` file with your API keys. For Streamlit deployment:
 
-## Usage
+1. Get your API keys:
+   - YouTube API Key: 
+     1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+     2. Create a new project or select an existing one
+     3. Enable the YouTube Data API v3
+     4. Create credentials (API key)
 
-Run the main application:
+   - OpenAI API Key:
+     1. Go to [OpenAI API Keys](https://platform.openai.com/api-keys)
+     2. Create a new API key
+
+2. Add secrets in Streamlit:
+   - Go to your app's dashboard on share.streamlit.io
+   - Navigate to Settings → Secrets
+   - Add the following secrets:
+     ```toml
+     YOUTUBE_API_KEY = "your_youtube_api_key_here"
+     OPENAI_API_KEY = "your_openai_api_key_here"
+     ```
+
+4. Create required directories:
 ```bash
-python main.py
+mkdir assets generated
 ```
 
-The application will:
-1. Prompt for a YouTube video URL
-2. Extract random comments from the video
-3. Generate a song using the extracted comments
-4. Save the results in both CSV and PDF formats
+5. Add your logo:
+- Place your logo image in the `assets` directory as `logo.png`
 
-## Project Structure
+## Running the Application
 
-- `main.py`: Main application entry point
-- `utils/`:
-  - `youtube_scraper.py`: Handles YouTube comment extraction
-  - `song_generator.py`: Converts comments into song lyrics
-  - `pdf_generator.py`: Generates PDF output
-  - `csv_generator.py`: Generates CSV output
+Run the Streamlit app:
+```bash
+streamlit run main.py
+```
 
-## Requirements
+## Features
 
-See `requirements.txt` for a full list of dependencies.
+- Scrape comments from any YouTube video
+- Generate song lyrics from comments using AI
+- Multiple genre options
+- Adjustable mood and creativity settings
+- Download lyrics as PDF
+- Export comments as CSV
 
-## License
+## Note
 
-This project is open source and available under the MIT License.
+Make sure to keep your API keys confidential and never commit them to version control. The `.env` file is included in `.gitignore` for this reason.
