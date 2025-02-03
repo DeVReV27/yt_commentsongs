@@ -15,27 +15,24 @@ cd yt_commentsongs
 pip install -r requirements.txt
 ```
 
-3. For local development, create a `.env` file with your API keys. For Streamlit deployment:
+3. Create a `.env` file in the root directory with your API keys:
+```
+YOUTUBE_API_KEY=your_youtube_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
-1. Get your API keys:
-   - YouTube API Key: 
-     1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-     2. Create a new project or select an existing one
-     3. Enable the YouTube Data API v3
-     4. Create credentials (API key)
+To get the API keys:
+- YouTube API Key: 
+  1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+  2. Create a new project or select an existing one
+  3. Enable the YouTube Data API v3
+  4. Create credentials (API key)
+  5. Copy the API key to your .env file
 
-   - OpenAI API Key:
-     1. Go to [OpenAI API Keys](https://platform.openai.com/api-keys)
-     2. Create a new API key
-
-2. Add secrets in Streamlit:
-   - Go to your app's dashboard on share.streamlit.io
-   - Navigate to Settings → Secrets
-   - Add the following secrets:
-     ```toml
-     YOUTUBE_API_KEY = "your_youtube_api_key_here"
-     OPENAI_API_KEY = "your_openai_api_key_here"
-     ```
+- OpenAI API Key:
+  1. Go to [OpenAI API Keys](https://platform.openai.com/api-keys)
+  2. Create a new API key
+  3. Copy the API key to your .env file
 
 4. Create required directories:
 ```bash
