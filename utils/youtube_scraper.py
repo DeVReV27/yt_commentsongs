@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 import os
 from urllib.parse import urlparse, parse_qs
 
-# Load API key from Streamlit secrets
-YOUTUBE_API_KEY = st.secrets["YOUTUBE_API_KEY"]
+# Load API key from environment variables
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
 
 def extract_video_id(url):
     """Extract the video ID from various forms of YouTube URLs."""
