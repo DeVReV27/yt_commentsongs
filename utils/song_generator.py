@@ -75,34 +75,42 @@ def generate_song_lyrics(comments, model, genre, mood, creativity, song_length, 
     
     # Use OpenAI to refine and format the lyrics
     prompt = f"""
-    Refine and format the following song lyrics. The genre is {genre}, and the mood should be {mood}.
-    Do not change the content of the comments, but you can:
-    1. Adjust line breaks for better flow
-    2. Add repetition where appropriate (e.g., for chorus)
-    3. Suggest simple connecting words or phrases between lines if absolutely necessary
-    4. Format the structure (e.g., [Verse 1], [Chorus], etc.)
+    Create a complete, well-structured song from the following lyrics. The genre is {genre}, and the mood should be {mood}.
+
+    Requirements:
+    1. Create a COMPLETE song - do not truncate or end with "to be continued"
+    2. Maintain clear section headers: [Intro], [Verse 1], [Chorus], etc.
+    3. Each section should be properly spaced and formatted
+    4. Use the provided comments as the core content, but you can:
+       - Adjust line breaks for better flow
+       - Add repetition where appropriate (especially for chorus)
+       - Add minimal connecting words or phrases between lines
+    5. Ensure all sections from the song structure are filled with content
+    6. If more content is needed, creatively reuse and adapt existing comments
 
     Additional info: {additional_info}
 
-    Lyrics to refine:
+    Lyrics to structure:
     {full_lyrics}
+    
+    Important: Generate the complete song with all sections. Do not truncate or leave any sections incomplete.
     """
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4o",
+        response = openai.chat.completions.create(
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are an AI that formats and refines song lyrics without changing the core content."},
                 {"role": "user", "content": prompt}
             ],
             temperature=creativity,
-            max_tokens=2000
+            max_tokens=4000
         )
         
-        refined_lyrics = response['choices'][0]['message']['content'].strip()
+        refined_lyrics = response.choices[0].message.content.strip()
         return refined_lyrics
 
-    except openai.error.InvalidRequestError as e:
+    except openai.APIError as e:
         st.error(f"Error with OpenAI API: {str(e)}")
         st.warning("Falling back to unrefined lyrics due to API error.")
         return full_lyrics

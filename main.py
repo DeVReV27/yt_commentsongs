@@ -13,7 +13,7 @@ load_dotenv()
 st.set_page_config(layout="wide", page_title="MacieraiMusic")
 
 # Sidebar logo and variables
-st.sidebar.image("assets/logo.png", use_column_width=True)
+st.sidebar.image("assets/logo.png", use_container_width=True)
 
 st.sidebar.title("Song Creation Settings")
 
@@ -51,14 +51,20 @@ if st.button("Create Song"):
         with st.spinner("Creating song lyrics..."):
             lyrics = generate_song_lyrics(
                 st.session_state['comments'], 
-                "gpt-4o",
+                "gpt-4",
                 genre, 
                 mood, 
                 creativity, 
                 song_length, 
                 additional_info
             )
-            st.write(lyrics)
+            # Display lyrics in a more readable format
+            st.markdown("## Generated Song Lyrics")
+            st.markdown("---")
+            # Format lyrics with proper spacing and styling
+            formatted_lyrics = lyrics.replace("[", "\n\n### [").replace("]:", "]")
+            st.markdown(formatted_lyrics)
+            st.markdown("---")
             try:
                 pdf_bytes = generate_pdf(lyrics)
                 st.download_button(
@@ -83,4 +89,4 @@ st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 
 # Add a footer
 st.sidebar.markdown("---")
-st.sidebar.markdown("© 2024 MacieraiMusic. All rights reserved.")
+st.sidebar.markdown("© 2025 MacieraiMusic. All rights reserved.")
